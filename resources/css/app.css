@@ -98,38 +98,38 @@
 }
 
 .dark {
-    --background: oklch(0.145 0 0);
-    --foreground: oklch(0.985 0 0);
-    --card: oklch(0.145 0 0);
-    --card-foreground: oklch(0.985 0 0);
-    --popover: oklch(0.145 0 0);
-    --popover-foreground: oklch(0.985 0 0);
-    --primary: oklch(0.985 0 0);
-    --primary-foreground: oklch(0.205 0 0);
-    --secondary: oklch(0.269 0 0);
-    --secondary-foreground: oklch(0.985 0 0);
-    --muted: oklch(0.269 0 0);
-    --muted-foreground: oklch(0.708 0 0);
-    --accent: oklch(0.269 0 0);
-    --accent-foreground: oklch(0.985 0 0);
-    --destructive: oklch(0.396 0.141 25.723);
-    --destructive-foreground: oklch(0.637 0.237 25.331);
-    --border: oklch(0.269 0 0);
-    --input: oklch(0.269 0 0);
-    --ring: oklch(0.439 0 0);
-    --chart-1: oklch(0.488 0.243 264.376);
-    --chart-2: oklch(0.696 0.17 162.48);
-    --chart-3: oklch(0.769 0.188 70.08);
-    --chart-4: oklch(0.627 0.265 303.9);
-    --chart-5: oklch(0.645 0.246 16.439);
-    --sidebar: oklch(0.205 0 0);
-    --sidebar-foreground: oklch(0.985 0 0);
-    --sidebar-primary: oklch(0.985 0 0);
-    --sidebar-primary-foreground: oklch(0.985 0 0);
-    --sidebar-accent: oklch(0.269 0 0);
-    --sidebar-accent-foreground: oklch(0.985 0 0);
-    --sidebar-border: oklch(0.269 0 0);
-    --sidebar-ring: oklch(0.439 0 0);
+    --background: #0b1220;
+    --foreground: #f3f4f6;
+    --card: #111827;
+    --card-foreground: #f3f4f6;
+    --popover: #111827;
+    --popover-foreground: #f3f4f6;
+    --primary: #3b82f6;
+    --primary-foreground: #f3f4f6;
+    --secondary: #172033;
+    --secondary-foreground: #f3f4f6;
+    --muted: #172033;
+    --muted-foreground: #9ca3af;
+    --accent: #172033;
+    --accent-foreground: #f3f4f6;
+    --destructive: #ef4444;
+    --destructive-foreground: #f3f4f6;
+    --border: #253043;
+    --input: #253043;
+    --ring: #3b82f6;
+    --chart-1: #3b82f6;
+    --chart-2: #60a5fa;
+    --chart-3: #f59e0b;
+    --chart-4: #22c55e;
+    --chart-5: #ef4444;
+    --sidebar: #111827;
+    --sidebar-foreground: #f3f4f6;
+    --sidebar-primary: #3b82f6;
+    --sidebar-primary-foreground: #f3f4f6;
+    --sidebar-accent: #172033;
+    --sidebar-accent-foreground: #f3f4f6;
+    --sidebar-border: #253043;
+    --sidebar-ring: #3b82f6;
 }
 
 @layer base {
@@ -140,4 +140,1112 @@
     body {
         @apply bg-background text-foreground;
     }
+}
+
+.nexaShell {
+    min-height: 100vh;
+    background: #f8fafc;
+    color: #111827;
+    font-family:
+        'Instrument Sans',
+        Inter,
+        ui-sans-serif,
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        'Segoe UI',
+        sans-serif;
+}
+
+.nexaShell svg {
+    flex-shrink: 0;
+}
+
+.nexaSidebar {
+    display: none;
+}
+
+.nexaMain {
+    min-width: 0;
+}
+
+.nexaTopbar {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-height: 72px;
+    padding: 12px 16px;
+    background: rgba(255, 255, 255, 0.94);
+    border-bottom: 1px solid #e5e7eb;
+    backdrop-filter: blur(16px);
+}
+
+.topbarIconButton,
+.topbarAiButton,
+.topbarDateButton {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #e5e7eb;
+    background: #ffffff;
+    color: #111827;
+    cursor: default;
+}
+
+.topbarIconButton {
+    position: relative;
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+}
+
+.themeToggleButton {
+    color: #2563eb;
+}
+
+.topbarSearch {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex: 1;
+    min-width: 0;
+    height: 44px;
+    padding: 0 12px;
+    color: #6b7280;
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    box-shadow: 0 10px 24px rgba(15, 23, 42, 0.04);
+}
+
+.topbarSearch input {
+    width: 100%;
+    min-width: 0;
+    border: 0;
+    outline: 0;
+    color: #111827;
+    background: transparent;
+    font-size: 14px;
+}
+
+.topbarSearch input::placeholder {
+    color: #6b7280;
+}
+
+.topbarActions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.topbarAiButton,
+.topbarDateButton {
+    gap: 8px;
+    height: 40px;
+    padding: 0 12px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.topbarAiButton {
+    color: #2563eb;
+}
+
+.topbarAiButton span,
+.topbarDesktopOnly {
+    display: none;
+}
+
+.notificationDot {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    display: grid;
+    place-items: center;
+    min-width: 18px;
+    height: 18px;
+    padding: 0 5px;
+    color: #ffffff;
+    background: #ef4444;
+    border: 2px solid #ffffff;
+    border-radius: 999px;
+    font-size: 11px;
+    font-weight: 800;
+}
+
+.topbarAvatar,
+.userAvatar {
+    display: grid;
+    place-items: center;
+    width: 38px;
+    height: 38px;
+    flex: 0 0 auto;
+    color: #ffffff;
+    background: linear-gradient(135deg, #2563eb, #60a5fa);
+    border-radius: 999px;
+    font-size: 14px;
+    font-weight: 800;
+}
+
+.nexaContent {
+    padding: 20px 16px 36px;
+}
+
+.dashboardPage {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    max-width: 1480px;
+    margin: 0 auto;
+}
+
+.dashboardHero {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.dashboardEyebrow {
+    margin-bottom: 6px;
+    color: #2563eb;
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.dashboardHero h1 {
+    margin: 0;
+    color: #111827;
+    font-size: 28px;
+    line-height: 1.15;
+    font-weight: 850;
+}
+
+.dashboardHero p {
+    margin-top: 8px;
+    color: #6b7280;
+    font-size: 15px;
+}
+
+.dateSelector {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+    height: 42px;
+    color: #111827;
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.summaryGrid,
+.dashboardGrid,
+.shortcutGrid {
+    display: grid;
+    gap: 16px;
+}
+
+.dashboardCard {
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    box-shadow: 0 18px 48px rgba(15, 23, 42, 0.04);
+}
+
+.summaryCard {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    min-height: 132px;
+    padding: 22px;
+}
+
+.summaryIcon {
+    display: grid;
+    place-items: center;
+    width: 58px;
+    height: 58px;
+    border-radius: 999px;
+}
+
+.summaryIconBlue {
+    color: #2563eb;
+    background: #eff6ff;
+}
+
+.summaryIconAmber {
+    color: #f59e0b;
+    background: #fffbeb;
+}
+
+.summaryIconRed {
+    color: #ef4444;
+    background: #fef2f2;
+}
+
+.summaryIconGreen {
+    color: #16a34a;
+    background: #ecfdf5;
+}
+
+.summaryCard span,
+.performanceStats span,
+.sidebarAiCard p,
+.sidebarUserCard span,
+.slaItem small,
+.activityItem p,
+.priorityTicket span {
+    color: #6b7280;
+}
+
+.summaryCard strong {
+    display: block;
+    margin-top: 4px;
+    color: #111827;
+    font-size: 30px;
+    line-height: 1;
+}
+
+.summaryCard small {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    margin-top: 10px;
+    color: #16a34a;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.summaryCard .warningTrend {
+    color: #f59e0b;
+}
+
+.summaryCard .dangerTrend {
+    color: #ef4444;
+}
+
+.dashboardPanel {
+    min-width: 0;
+    padding: 18px;
+}
+
+.panelHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 18px;
+}
+
+.panelHeader h2 {
+    margin: 0;
+    color: #111827;
+    font-size: 16px;
+    font-weight: 800;
+}
+
+.panelHeader a {
+    color: #2563eb;
+    font-size: 13px;
+    font-weight: 800;
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+.panelTitleGroup {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.panelTitleGroup span {
+    color: #6b7280;
+    font-size: 12px;
+}
+
+.countBadge,
+.dangerBadge,
+.warningBadge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 24px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 800;
+}
+
+.countBadge {
+    min-width: 24px;
+    color: #ef4444;
+    background: #fee2e2;
+}
+
+.ticketList,
+.activityList,
+.slaList {
+    display: flex;
+    flex-direction: column;
+}
+
+.priorityTicket {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 0 0 18px 16px;
+    border-left: 4px solid #ef4444;
+}
+
+.priorityTicket + .priorityTicket {
+    padding-top: 18px;
+    border-top: 1px solid #e5e7eb;
+}
+
+.priorityTicket strong,
+.activityItem strong,
+.slaItem strong {
+    display: block;
+    color: #111827;
+    font-size: 13px;
+    font-weight: 800;
+}
+
+.priorityTicket p,
+.activityItem p,
+.slaItem p {
+    margin: 4px 0;
+    color: #111827;
+    font-size: 14px;
+}
+
+.ticketMeta {
+    display: flex;
+    align-items: flex-end;
+    flex-direction: column;
+    gap: 10px;
+    white-space: nowrap;
+}
+
+.ticketMeta small,
+.activityItem small {
+    color: #6b7280;
+    font-size: 12px;
+}
+
+.dangerBadge {
+    padding: 3px 8px;
+    color: #ef4444;
+    background: #fee2e2;
+}
+
+.warningBadge {
+    padding: 3px 8px;
+    color: #f97316;
+    background: #ffedd5;
+}
+
+.statusOverview {
+    display: grid;
+    gap: 20px;
+    align-items: center;
+}
+
+.statusDonut {
+    display: grid;
+    place-items: center;
+    width: 168px;
+    height: 168px;
+    margin: 0 auto;
+    background: conic-gradient(
+        #2563eb 0 40%,
+        #60a5fa 40% 68%,
+        #f59e0b 68% 85%,
+        #10b981 85% 100%
+    );
+    border-radius: 999px;
+}
+
+.statusDonut > div {
+    display: grid;
+    place-items: center;
+    width: 96px;
+    height: 96px;
+    background: #ffffff;
+    border-radius: 999px;
+}
+
+.statusDonut strong {
+    color: #111827;
+    font-size: 28px;
+    line-height: 1;
+}
+
+.statusDonut span {
+    color: #6b7280;
+    font-size: 13px;
+}
+
+.statusLegend {
+    display: grid;
+    gap: 14px;
+}
+
+.statusLegend div {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: 10px;
+}
+
+.statusLegend p {
+    color: #374151;
+    font-size: 13px;
+}
+
+.statusLegend strong {
+    color: #111827;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.legendDot {
+    width: 9px;
+    height: 9px;
+    border-radius: 999px;
+}
+
+.legendBlue {
+    background: #2563eb;
+}
+
+.legendSky {
+    background: #60a5fa;
+}
+
+.legendAmber {
+    background: #f59e0b;
+}
+
+.legendGreen {
+    background: #10b981;
+}
+
+.activityItem,
+.slaItem {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 0;
+}
+
+.activityItem + .activityItem,
+.slaItem + .slaItem {
+    border-top: 1px solid #e5e7eb;
+}
+
+.activityIcon,
+.slaIcon,
+.shortcutIcon {
+    display: grid;
+    place-items: center;
+    border-radius: 999px;
+}
+
+.activityIcon {
+    width: 36px;
+    height: 36px;
+}
+
+.activityIconBlue {
+    color: #2563eb;
+    background: #eff6ff;
+}
+
+.activityIconGreen {
+    color: #16a34a;
+    background: #ecfdf5;
+}
+
+.activityIconAmber,
+.slaIcon {
+    color: #f59e0b;
+    background: #fffbeb;
+}
+
+.slaIcon {
+    width: 32px;
+    height: 32px;
+}
+
+.slaItem time {
+    color: #f97316;
+    font-size: 16px;
+    font-weight: 850;
+    white-space: nowrap;
+}
+
+.performanceStats {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+}
+
+.performanceStats div {
+    padding: 12px;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+}
+
+.performanceStats strong {
+    display: block;
+    margin-top: 6px;
+    color: #111827;
+    font-size: 16px;
+}
+
+.performanceStats small {
+    display: block;
+    margin-top: 6px;
+    color: #16a34a;
+    font-size: 12px;
+    font-weight: 800;
+}
+
+.performanceChart {
+    margin-top: 18px;
+}
+
+.performanceChart svg {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+.performanceChartGlow {
+    stroke: #dbeafe;
+}
+
+.performanceChartLine {
+    stroke: #2563eb;
+}
+
+.performanceChartAxis {
+    stroke: #e5e7eb;
+}
+
+.chartLabels {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 6px;
+    color: #6b7280;
+    font-size: 12px;
+}
+
+.shortcutGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.shortcutItem {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-height: 84px;
+    padding: 14px;
+    color: #111827;
+    background: #f8fafc;
+    border: 1px solid #eef2f7;
+    border-radius: 8px;
+    text-align: left;
+}
+
+.shortcutItem strong {
+    font-size: 13px;
+}
+
+.shortcutIcon {
+    width: 42px;
+    height: 42px;
+}
+
+.shortcutBlue {
+    color: #2563eb;
+    background: #eff6ff;
+}
+
+.shortcutPurple {
+    color: #6d28d9;
+    background: #f5f3ff;
+}
+
+.shortcutGreen {
+    color: #16a34a;
+    background: #ecfdf5;
+}
+
+.shortcutGray {
+    color: #475569;
+    background: #f1f5f9;
+}
+
+@media (min-width: 640px) {
+    .topbarAiButton span,
+    .topbarDesktopOnly {
+        display: inline-flex;
+    }
+
+    .summaryGrid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .dashboardHero {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .dateSelector {
+        width: auto;
+        padding: 0 16px;
+    }
+}
+
+@media (min-width: 900px) {
+    .dashboardGrid {
+        grid-template-columns: repeat(6, minmax(0, 1fr));
+    }
+
+    .dashboardPanel {
+        grid-column: span 3;
+    }
+
+    .activityPanel,
+    .shortcutsPanel {
+        grid-column: span 6;
+    }
+
+    .statusOverview {
+        grid-template-columns: auto 1fr;
+    }
+}
+
+@media (min-width: 1024px) {
+    .nexaSidebar {
+        position: fixed;
+        inset: 0 auto 0 0;
+        display: flex;
+        flex-direction: column;
+        width: 280px;
+        padding: 18px;
+        background: #ffffff;
+        border-right: 1px solid #e5e7eb;
+    }
+
+    .sidebarBrand {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        height: 52px;
+        color: #111827;
+        font-size: 21px;
+        font-weight: 850;
+    }
+
+    .sidebarLogo {
+        display: grid;
+        place-items: center;
+        width: 38px;
+        height: 38px;
+        color: #ffffff;
+        background: linear-gradient(135deg, #2563eb 0%, #60a5fa 100%);
+        border-radius: 8px;
+        box-shadow: 0 12px 28px rgba(37, 99, 235, 0.28);
+    }
+
+    .sidebarNav {
+        display: grid;
+        gap: 8px;
+        margin-top: 32px;
+    }
+
+    .sidebarItem {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        min-height: 46px;
+        padding: 0 14px;
+        color: #374151;
+        border-radius: 8px;
+        font-size: 15px;
+        font-weight: 750;
+        text-decoration: none;
+    }
+
+    .sidebarItemActive {
+        color: #ffffff;
+        background: #2563eb;
+        box-shadow: 0 14px 32px rgba(37, 99, 235, 0.28);
+    }
+
+    .sidebarBottom {
+        display: grid;
+        gap: 16px;
+        margin-top: auto;
+    }
+
+    .sidebarAiCard {
+        padding: 16px;
+        background: #f8fbff;
+        border: 1px solid #dbeafe;
+        border-radius: 8px;
+    }
+
+    .sidebarAiTitle {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        color: #2563eb;
+        font-size: 14px;
+        font-weight: 850;
+    }
+
+    .sidebarAiCard p {
+        margin: 14px 0;
+        font-size: 13px;
+        line-height: 1.45;
+    }
+
+    .sidebarAiButton {
+        width: 100%;
+        height: 40px;
+        color: #ffffff;
+        background: #2563eb;
+        border: 0;
+        border-radius: 8px;
+        font-size: 14px;
+        font-weight: 800;
+    }
+
+    .sidebarUserCard {
+        display: grid;
+        grid-template-columns: auto 1fr auto;
+        align-items: center;
+        gap: 12px;
+        padding: 12px;
+        background: #ffffff;
+        border: 1px solid #e5e7eb;
+        border-radius: 8px;
+    }
+
+    .sidebarUserCard p {
+        margin: 0;
+        color: #111827;
+        font-size: 14px;
+        font-weight: 850;
+    }
+
+    .sidebarUserCard span {
+        font-size: 12px;
+    }
+
+    .nexaMain {
+        margin-left: 280px;
+    }
+
+    .mobileMenuButton {
+        display: none;
+    }
+
+    .nexaTopbar {
+        min-height: 76px;
+        padding: 14px 28px;
+    }
+
+    .nexaContent {
+        padding: 28px;
+    }
+}
+
+@media (min-width: 1180px) {
+    .summaryGrid {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    .dashboardGrid {
+        grid-template-columns: repeat(12, minmax(0, 1fr));
+        gap: 18px;
+    }
+
+    .priorityPanel,
+    .statusPanel,
+    .activityPanel,
+    .slaPanel,
+    .performancePanel,
+    .shortcutsPanel {
+        grid-column: span 4;
+    }
+}
+
+.dark .nexaShell {
+    background: #0b1220;
+    color: #f3f4f6;
+}
+
+.dark .nexaTopbar {
+    background: rgba(11, 18, 32, 0.92);
+    border-bottom-color: #253043;
+    box-shadow: 0 18px 44px rgba(0, 0, 0, 0.18);
+}
+
+.dark .topbarIconButton,
+.dark .topbarAiButton,
+.dark .topbarDateButton,
+.dark .dateSelector {
+    color: #f3f4f6;
+    background: #111827;
+    border-color: #253043;
+}
+
+.dark .topbarIconButton:hover,
+.dark .topbarAiButton:hover,
+.dark .topbarDateButton:hover,
+.dark .dateSelector:hover,
+.dark .shortcutItem:hover {
+    background: #172033;
+    border-color: #3b82f6;
+}
+
+.dark .themeToggleButton {
+    color: #60a5fa;
+    box-shadow: inset 0 0 0 1px rgba(59, 130, 246, 0.18);
+}
+
+.dark .topbarSearch {
+    color: #9ca3af;
+    background: #111827;
+    border-color: #253043;
+    box-shadow: 0 16px 36px rgba(0, 0, 0, 0.2);
+}
+
+.dark .topbarSearch input {
+    color: #f3f4f6;
+}
+
+.dark .topbarSearch input::placeholder {
+    color: #9ca3af;
+}
+
+.dark .notificationDot {
+    background: #3b82f6;
+    border-color: #111827;
+}
+
+.dark .topbarAiButton,
+.dark .dashboardEyebrow,
+.dark .panelHeader a,
+.dark .sidebarAiTitle {
+    color: #60a5fa;
+}
+
+.dark .topbarAvatar,
+.dark .userAvatar,
+.dark .sidebarLogo {
+    background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+}
+
+.dark .dashboardHero h1,
+.dark .summaryCard strong,
+.dark .panelHeader h2,
+.dark .priorityTicket strong,
+.dark .priorityTicket p,
+.dark .activityItem strong,
+.dark .activityItem p,
+.dark .slaItem strong,
+.dark .slaItem p,
+.dark .statusDonut strong,
+.dark .statusLegend strong,
+.dark .performanceStats strong,
+.dark .shortcutItem,
+.dark .sidebarBrand,
+.dark .sidebarUserCard p {
+    color: #f3f4f6;
+}
+
+.dark .dashboardHero p,
+.dark .summaryCard span,
+.dark .performanceStats span,
+.dark .sidebarAiCard p,
+.dark .sidebarUserCard span,
+.dark .slaItem small,
+.dark .activityItem small,
+.dark .activityItem p,
+.dark .priorityTicket span,
+.dark .ticketMeta small,
+.dark .panelTitleGroup span,
+.dark .statusDonut span,
+.dark .statusLegend p,
+.dark .chartLabels {
+    color: #9ca3af;
+}
+
+.dark .dashboardCard {
+    background: linear-gradient(180deg, #172033 0%, #111827 100%);
+    border-color: #253043;
+    box-shadow: 0 22px 60px rgba(0, 0, 0, 0.22);
+}
+
+.dark .summaryIconBlue,
+.dark .activityIconBlue,
+.dark .shortcutBlue {
+    color: #3b82f6;
+    background: rgba(59, 130, 246, 0.16);
+}
+
+.dark .summaryIconAmber,
+.dark .activityIconAmber,
+.dark .slaIcon {
+    color: #f59e0b;
+    background: rgba(245, 158, 11, 0.16);
+}
+
+.dark .summaryIconRed {
+    color: #ef4444;
+    background: rgba(239, 68, 68, 0.16);
+}
+
+.dark .summaryIconGreen,
+.dark .activityIconGreen,
+.dark .shortcutGreen {
+    color: #22c55e;
+    background: rgba(34, 197, 94, 0.16);
+}
+
+.dark .summaryCard small,
+.dark .performanceStats small {
+    color: #22c55e;
+}
+
+.dark .summaryCard .warningTrend,
+.dark .slaItem time {
+    color: #f59e0b;
+}
+
+.dark .summaryCard .dangerTrend {
+    color: #ef4444;
+}
+
+.dark .countBadge,
+.dark .dangerBadge {
+    color: #ef4444;
+    background: rgba(239, 68, 68, 0.16);
+}
+
+.dark .warningBadge {
+    color: #f59e0b;
+    background: rgba(245, 158, 11, 0.16);
+}
+
+.dark .priorityTicket {
+    border-left-color: #ef4444;
+}
+
+.dark .priorityTicket + .priorityTicket,
+.dark .activityItem + .activityItem,
+.dark .slaItem + .slaItem {
+    border-top-color: #253043;
+}
+
+.dark .statusDonut {
+    background: conic-gradient(
+        #3b82f6 0 40%,
+        #60a5fa 40% 68%,
+        #f59e0b 68% 85%,
+        #22c55e 85% 100%
+    );
+}
+
+.dark .statusDonut > div {
+    background: #111827;
+}
+
+.dark .legendBlue {
+    background: #3b82f6;
+}
+
+.dark .legendSky {
+    background: #60a5fa;
+}
+
+.dark .legendAmber {
+    background: #f59e0b;
+}
+
+.dark .legendGreen {
+    background: #22c55e;
+}
+
+.dark .performanceStats div,
+.dark .shortcutItem,
+.dark .sidebarAiCard,
+.dark .sidebarUserCard {
+    background: #111827;
+    border-color: #253043;
+}
+
+.dark .performanceChartGlow {
+    stroke: #172033;
+}
+
+.dark .performanceChartLine {
+    stroke: #3b82f6;
+}
+
+.dark .performanceChartAxis {
+    stroke: #253043;
+}
+
+.dark .shortcutPurple {
+    color: #a78bfa;
+    background: rgba(167, 139, 250, 0.16);
+}
+
+.dark .shortcutGray {
+    color: #9ca3af;
+    background: rgba(156, 163, 175, 0.14);
+}
+
+.dark .nexaSidebar {
+    background: #0b1220;
+    border-right-color: #253043;
+}
+
+.dark .sidebarItem {
+    color: #9ca3af;
+}
+
+.dark .sidebarItem:hover {
+    color: #f3f4f6;
+    background: #111827;
+}
+
+.dark .sidebarItemActive {
+    color: #ffffff;
+    background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+    box-shadow: 0 14px 32px rgba(37, 99, 235, 0.24);
+}
+
+.dark .sidebarAiButton {
+    color: #ffffff;
+    background: #3b82f6;
 }

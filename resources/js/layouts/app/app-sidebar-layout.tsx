@@ -1,20 +1,145 @@
-import { AppContent } from '@/components/app-content';
-import { AppShell } from '@/components/app-shell';
-import { AppSidebar } from '@/components/app-sidebar';
-import { AppSidebarHeader } from '@/components/app-sidebar-header';
 import type { AppLayoutProps } from '@/types';
+import {
+    BarChart3,
+    Bell,
+    CalendarDays,
+    ChevronDown,
+    LayoutDashboard,
+    Menu,
+    MessageCircle,
+    Moon,
+    Search,
+    Settings,
+    Sparkles,
+    Sun,
+    Ticket,
+} from 'lucide-react';
+import { useAppearance } from '@/hooks/use-appearance';
 
-export default function AppSidebarLayout({
-    children,
-    breadcrumbs = [],
-}: AppLayoutProps) {
+export default function AppSidebarLayout({ children }: AppLayoutProps) {
+    const { resolvedAppearance, updateAppearance } = useAppearance();
+    const isDark = resolvedAppearance === 'dark';
+
     return (
-        <AppShell variant="sidebar">
-            <AppSidebar />
-            <AppContent variant="sidebar" className="overflow-x-hidden">
-                <AppSidebarHeader breadcrumbs={breadcrumbs} />
-                {children}
-            </AppContent>
-        </AppShell>
+        <div className="nexaShell">
+            <aside className="nexaSidebar">
+                <div className="sidebarBrand">
+                    <div className="sidebarLogo">N</div>
+                    <span>Nexa Tickets</span>
+                </div>
+
+                <nav className="sidebarNav" aria-label="Main navigation">
+                    <a
+                        className="sidebarItem sidebarItemActive"
+                        href="/dashboard"
+                    >
+                        <LayoutDashboard size={18} />
+                        <span>Dashboard</span>
+                    </a>
+                    <a className="sidebarItem" href="#">
+                        <Ticket size={18} />
+                        <span>My Tickets</span>
+                    </a>
+                    <a className="sidebarItem" href="#">
+                        <BarChart3 size={18} />
+                        <span>Insights</span>
+                    </a>
+                    <a className="sidebarItem" href="/settings/profile">
+                        <Settings size={18} />
+                        <span>Settings</span>
+                    </a>
+                </nav>
+
+                <div className="sidebarBottom">
+                    <div className="sidebarAiCard">
+                        <div className="sidebarAiTitle">
+                            <Sparkles size={16} />
+                            <span>AI Assistant</span>
+                        </div>
+                        <p>Ask anything about your tickets and performance.</p>
+                        <button className="sidebarAiButton" type="button">
+                            Ask Nexa AI
+                        </button>
+                    </div>
+
+                    <div className="sidebarUserCard">
+                        <div className="userAvatar">L</div>
+                        <div>
+                            <p>Lucas</p>
+                            <span>Support Lead</span>
+                        </div>
+                        <ChevronDown size={16} />
+                    </div>
+                </div>
+            </aside>
+
+            <div className="nexaMain">
+                <header className="nexaTopbar">
+                    <button
+                        className="topbarIconButton mobileMenuButton"
+                        type="button"
+                        aria-label="Open menu"
+                    >
+                        <Menu size={20} />
+                    </button>
+
+                    <div className="topbarSearch">
+                        <Search size={18} />
+                        <input
+                            type="search"
+                            placeholder="Search tickets, customers, IDs..."
+                            aria-label="Search tickets"
+                        />
+                    </div>
+
+                    <div className="topbarActions">
+                        <button
+                            className="topbarIconButton themeToggleButton"
+                            type="button"
+                            onClick={() =>
+                                updateAppearance(isDark ? 'light' : 'dark')
+                            }
+                            aria-label={
+                                isDark ? 'Use light theme' : 'Use dark theme'
+                            }
+                            title={
+                                isDark ? 'Use light theme' : 'Use dark theme'
+                            }
+                        >
+                            {isDark ? <Sun size={18} /> : <Moon size={18} />}
+                        </button>
+                        <button
+                            className="topbarIconButton"
+                            type="button"
+                            aria-label="Notifications"
+                        >
+                            <Bell size={18} />
+                            <span className="notificationDot">3</span>
+                        </button>
+                        <button
+                            className="topbarIconButton topbarDesktopOnly"
+                            type="button"
+                            aria-label="Messages"
+                        >
+                            <MessageCircle size={18} />
+                        </button>
+                        <button className="topbarAiButton" type="button">
+                            <Sparkles size={16} />
+                            <span>Ask Nexa AI</span>
+                        </button>
+                        <button
+                            className="topbarDateButton topbarDesktopOnly"
+                            type="button"
+                        >
+                            <CalendarDays size={16} />
+                            <span>Today</span>
+                        </button>
+                        <div className="topbarAvatar">L</div>
+                    </div>
+                </header>
+
+                <main className="nexaContent">{children}</main>
+            </div>
+        </div>
     );
 }
