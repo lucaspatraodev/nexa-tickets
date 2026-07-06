@@ -1,4 +1,4 @@
-import type { AppLayoutProps } from '@/types';
+import { Link, usePage } from '@inertiajs/react';
 import {
     BarChart3,
     Bell,
@@ -15,10 +15,41 @@ import {
     Ticket,
 } from 'lucide-react';
 import { useAppearance } from '@/hooks/use-appearance';
+import { cn } from '@/lib/utils';
+import type { AppLayoutProps } from '@/types';
+
+const navigationItems = [
+    {
+        title: 'Dashboard',
+        href: '/dashboard',
+        icon: LayoutDashboard,
+    },
+    {
+        title: 'My Tickets',
+        href: '/tickets',
+        icon: Ticket,
+    },
+    {
+        title: 'Insights',
+        href: '/insights',
+        icon: BarChart3,
+    },
+    {
+        title: 'Settings',
+        href: '/settings',
+        icon: Settings,
+    },
+] as const;
 
 export default function AppSidebarLayout({ children }: AppLayoutProps) {
     const { resolvedAppearance, updateAppearance } = useAppearance();
+    const page = usePage();
     const isDark = resolvedAppearance === 'dark';
+    const currentPath = page.url.split('?')[0];
+    const isCurrentPath = (href: string) =>
+        href === '/dashboard'
+            ? currentPath === href
+            : currentPath.startsWith(href);
 
     return (
         <div className="nexaShell">
@@ -29,25 +60,22 @@ export default function AppSidebarLayout({ children }: AppLayoutProps) {
                 </div>
 
                 <nav className="sidebarNav" aria-label="Main navigation">
-                    <a
-                        className="sidebarItem sidebarItemActive"
-                        href="/dashboard"
-                    >
-                        <LayoutDashboard size={18} />
-                        <span>Dashboard</span>
-                    </a>
-                    <a className="sidebarItem" href="#">
-                        <Ticket size={18} />
-                        <span>My Tickets</span>
-                    </a>
-                    <a className="sidebarItem" href="#">
-                        <BarChart3 size={18} />
-                        <span>Insights</span>
-                    </a>
-                    <a className="sidebarItem" href="/settings/profile">
-                        <Settings size={18} />
-                        <span>Settings</span>
-                    </a>
+                    {navigationItems.map((item) => {
+                        const Icon = item.icon;
+
+                        return (
+                            <Link
+                                className={cn('sidebarItem', {
+                                    sidebarItemActive: isCurrentPath(item.href),
+                                })}
+                                href={item.href}
+                                key={item.href}
+                            >
+                                <Icon size={18} />
+                                <span>{item.title}</span>
+                            </Link>
+                        );
+                    })}
                 </nav>
 
                 <div className="sidebarBottom">

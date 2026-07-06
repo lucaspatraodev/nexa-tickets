@@ -6,7 +6,30 @@ use Illuminate\Auth\Middleware\RequirePassword;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware(['auth'])->group(function () {
-    Route::redirect('settings', '/settings/profile');
+    Route::inertia('settings', 'settings', [
+        'sections' => [
+            [
+                'title' => 'Profile',
+                'description' => 'Update your name, email, and account information.',
+                'href' => '/settings/profile',
+            ],
+            [
+                'title' => 'Security',
+                'description' => 'Manage password, passkeys, and two-factor authentication.',
+                'href' => '/settings/security',
+            ],
+            [
+                'title' => 'Appearance',
+                'description' => 'Switch between light, dark, and system appearance.',
+                'href' => '/settings/appearance',
+            ],
+            [
+                'title' => 'Notifications',
+                'description' => 'Review notification preferences for ticket events.',
+                'href' => '/settings',
+            ],
+        ],
+    ])->name('settings.index');
 
     Route::get('settings/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('settings/profile', [ProfileController::class, 'update'])->name('profile.update');
