@@ -1249,3 +1249,690 @@
     color: #ffffff;
     background: #3b82f6;
 }
+
+.myTicketsPage {
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+    max-width: 1480px;
+    margin: 0 auto;
+}
+
+.myTicketsHeader h1 {
+    margin: 0;
+    color: #111827;
+    font-size: 30px;
+    line-height: 1.1;
+    font-weight: 850;
+}
+
+.myTicketsHeader p {
+    margin-top: 8px;
+    color: #6b7280;
+    font-size: 15px;
+}
+
+.myTicketsToolbar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px;
+    padding: 16px;
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    box-shadow: 0 16px 40px rgba(15, 23, 42, 0.04);
+}
+
+.myTicketsSearch {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex: 1 1 calc(100% - 58px);
+    min-width: 0;
+    height: 44px;
+    padding: 0 14px;
+    color: #64748b;
+    background: #ffffff;
+    border: 1px solid #dbe3ef;
+    border-radius: 8px;
+}
+
+.myTicketsSearch input {
+    width: 100%;
+    min-width: 0;
+    border: 0;
+    outline: 0;
+    color: #111827;
+    background: transparent;
+    font-size: 14px;
+}
+
+.myTicketsSearch input::placeholder {
+    color: #94a3b8;
+}
+
+.myTicketsMobileFilter,
+.myTicketsFilters button,
+.myTicketsCreate,
+.myTicketsViewSwitch button,
+.myTicketsPager button,
+.myTicketsPageSize {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #dbe3ef;
+    background: #ffffff;
+    color: #111827;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 750;
+}
+
+.myTicketsMobileFilter {
+    width: 46px;
+    height: 44px;
+}
+
+.myTicketsFilters {
+    display: flex;
+    gap: 10px;
+    width: 100%;
+    overflow-x: auto;
+    padding-bottom: 2px;
+}
+
+.myTicketsFilters button {
+    gap: 8px;
+    height: 42px;
+    padding: 0 14px;
+    white-space: nowrap;
+}
+
+.myTicketsCreate,
+.myTicketsViewSwitch {
+    display: none;
+}
+
+.myTicketsCreate {
+    display: inline-flex;
+    flex: 1 1 100%;
+    gap: 8px;
+    height: 44px;
+    padding: 0 18px;
+    color: #ffffff;
+    background: #2563eb;
+    border-color: #2563eb;
+    box-shadow: 0 14px 28px rgba(37, 99, 235, 0.24);
+}
+
+.myTicketsViewSwitch {
+    gap: 4px;
+    padding: 4px;
+    border: 1px solid #dbe3ef;
+    border-radius: 8px;
+}
+
+.myTicketsViewSwitch button {
+    width: 36px;
+    height: 34px;
+    border: 0;
+}
+
+.myTicketsViewSwitch .isActive {
+    color: #2563eb;
+    background: #eff6ff;
+}
+
+.myTicketsGrid {
+    display: grid;
+    gap: 18px;
+}
+
+.myTicketCard {
+    --ticket-accent: #2563eb;
+    --ticket-accent-soft: rgba(37, 99, 235, 0.12);
+    --ticket-accent-text: #2563eb;
+    display: flex;
+    flex-direction: column;
+    min-height: 274px;
+    overflow: hidden;
+    padding: 18px 18px 0;
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-top: 4px solid var(--ticket-accent);
+    border-radius: 8px;
+    box-shadow: 0 18px 42px rgba(15, 23, 42, 0.07);
+}
+
+.myTicketCard[data-priority*='Critical'] {
+    --ticket-accent: #ef4444;
+    --ticket-accent-soft: rgba(239, 68, 68, 0.12);
+    --ticket-accent-text: #ef4444;
+}
+
+.myTicketCard[data-priority*='High'],
+.myTicketCard[data-status*='Due'] {
+    --ticket-accent: #f97316;
+    --ticket-accent-soft: rgba(249, 115, 22, 0.13);
+    --ticket-accent-text: #f97316;
+}
+
+.myTicketCard[data-priority*='Medium'],
+.myTicketCard[data-status*='Waiting'] {
+    --ticket-accent: #eab308;
+    --ticket-accent-soft: rgba(234, 179, 8, 0.14);
+    --ticket-accent-text: #ca8a04;
+}
+
+.myTicketCard[data-priority*='Low'],
+.myTicketCard[data-status*='Resolved'] {
+    --ticket-accent: #22c55e;
+    --ticket-accent-soft: rgba(34, 197, 94, 0.13);
+    --ticket-accent-text: #16a34a;
+}
+
+.myTicketCard[data-status*='SLA'],
+.myTicketCard[data-status*='Breached'] {
+    --ticket-accent: #ef4444;
+    --ticket-accent-soft: rgba(239, 68, 68, 0.12);
+    --ticket-accent-text: #ef4444;
+}
+
+.myTicketTop,
+.myTicketTags,
+.myTicketFooter {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+.myTicketTop {
+    color: #64748b;
+    font-size: 13px;
+}
+
+.myTicketPriority {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--ticket-accent-text);
+    font-size: 12px;
+    font-weight: 850;
+    text-transform: uppercase;
+}
+
+.myTicketPriority span {
+    width: 9px;
+    height: 9px;
+    background: var(--ticket-accent);
+    border-radius: 999px;
+}
+
+.myTicketCard h2 {
+    margin: 16px 0 0;
+    color: #111827;
+    font-size: 16px;
+    line-height: 1.35;
+    font-weight: 850;
+}
+
+.myTicketCustomer {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+    margin: 12px 0 0;
+    color: #475569;
+    font-size: 13px;
+}
+
+.myTicketCustomer > span {
+    width: 4px;
+    height: 4px;
+    background: #94a3b8;
+    border-radius: 999px;
+}
+
+.myTicketTags {
+    flex-wrap: wrap;
+    margin-top: 18px;
+}
+
+.myTicketStatus {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    min-height: 28px;
+    padding: 0 10px;
+    color: var(--ticket-accent-text);
+    background: var(--ticket-accent-soft);
+    border-radius: 999px;
+    font-size: 13px;
+    font-weight: 850;
+}
+
+.myTicketUpdated {
+    color: #64748b;
+    font-size: 13px;
+}
+
+.myTicketFooter {
+    margin: auto -18px 0;
+    padding: 14px 18px;
+    border-top: 1px solid #e5e7eb;
+}
+
+.myTicketOwner {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    min-width: 0;
+    color: #334155;
+    font-size: 13px;
+    font-weight: 650;
+}
+
+.myTicketOwner span {
+    display: grid;
+    place-items: center;
+    width: 26px;
+    height: 26px;
+    flex: 0 0 auto;
+    color: #ffffff;
+    background: linear-gradient(135deg, #2563eb, #60a5fa);
+    border-radius: 999px;
+}
+
+.myTicketActions {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.myTicketActions button {
+    display: grid;
+    place-items: center;
+    width: 30px;
+    height: 30px;
+    color: #334155;
+    background: transparent;
+    border: 0;
+    border-radius: 8px;
+}
+
+.myTicketsFooter {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    color: #64748b;
+}
+
+.myTicketsFooter p {
+    margin: 0;
+    font-size: 14px;
+}
+
+.myTicketsPager {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.myTicketsPager button {
+    width: 40px;
+    height: 40px;
+}
+
+.myTicketsPager .isActive {
+    color: #ffffff;
+    background: #2563eb;
+    border-color: #2563eb;
+}
+
+.myTicketsPageSize {
+    gap: 8px;
+    height: 40px;
+    padding: 0 14px;
+}
+
+.createTicketModal {
+    width: min(720px, calc(100vw - 32px));
+    max-height: calc(100vh - 32px);
+    overflow-y: auto;
+    gap: 0;
+    padding: 0;
+    border-radius: 8px;
+}
+
+.createTicketHeader {
+    padding: 22px 24px 18px;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.createTicketHeading {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.createTicketHeading h2 {
+    color: #111827;
+    font-size: 18px;
+    line-height: 1.2;
+}
+
+.createTicketIcon {
+    display: grid;
+    place-items: center;
+    width: 36px;
+    height: 36px;
+    color: #ffffff;
+    background: #2563eb;
+    border-radius: 8px;
+    box-shadow: 0 12px 24px rgba(37, 99, 235, 0.24);
+}
+
+.createTicketForm {
+    display: grid;
+    gap: 16px;
+    padding: 20px 24px 24px;
+}
+
+.createTicketGrid {
+    display: grid;
+    gap: 14px;
+}
+
+.createTicketField {
+    display: grid;
+    gap: 8px;
+    min-width: 0;
+}
+
+.createTicketFieldFull {
+    grid-column: 1 / -1;
+}
+
+.createTicketField label {
+    color: #334155;
+    font-size: 13px;
+    font-weight: 800;
+}
+
+.createTicketField input,
+.createTicketTextarea,
+.createTicketSelectTrigger {
+    width: 100%;
+    min-height: 42px;
+    color: #111827;
+    background: #ffffff;
+    border-color: #dbe3ef;
+    border-radius: 8px;
+    font-size: 14px;
+}
+
+.createTicketField input::placeholder,
+.createTicketTextarea::placeholder {
+    color: #94a3b8;
+}
+
+.createTicketTextarea {
+    min-height: 118px;
+    resize: vertical;
+    padding: 10px 12px;
+    border: 1px solid #dbe3ef;
+    outline: 0;
+    line-height: 1.5;
+    box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
+}
+
+.createTicketTextarea:focus-visible {
+    border-color: #2563eb;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.16);
+}
+
+.createTicketSelectTrigger {
+    justify-content: space-between;
+}
+
+.createTicketAssignees {
+    display: grid;
+    gap: 8px;
+}
+
+.createTicketAssignee {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-height: 44px;
+    padding: 10px 12px;
+    background: #f8fafc;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+}
+
+.createTicketAssignee span {
+    display: grid;
+    gap: 2px;
+    min-width: 0;
+}
+
+.createTicketAssignee strong {
+    color: #111827;
+    font-size: 13px;
+    line-height: 1.2;
+}
+
+.createTicketAssignee small,
+.createTicketEmpty {
+    color: #64748b;
+    font-size: 12px;
+}
+
+.createTicketEmpty {
+    display: inline-flex;
+    align-items: center;
+    min-height: 42px;
+    padding: 0 12px;
+    background: #f8fafc;
+    border: 1px dashed #cbd5e1;
+    border-radius: 8px;
+}
+
+.createTicketActions {
+    gap: 10px;
+    padding-top: 4px;
+}
+
+.createTicketPrimary,
+.createTicketSecondary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-height: 42px;
+    padding: 0 16px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 800;
+}
+
+.createTicketPrimary {
+    color: #ffffff;
+    background: #2563eb;
+    border: 1px solid #2563eb;
+}
+
+.createTicketPrimary:disabled,
+.createTicketSecondary:disabled {
+    cursor: not-allowed;
+    opacity: 0.58;
+}
+
+.createTicketSecondary {
+    color: #334155;
+    background: #ffffff;
+    border: 1px solid #dbe3ef;
+}
+
+.createTicketSpinner {
+    animation: createTicketSpin 0.8s linear infinite;
+}
+
+@keyframes createTicketSpin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@media (min-width: 700px) {
+    .myTicketsGrid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .createTicketGrid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .createTicketActions {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-end;
+    }
+}
+
+@media (min-width: 980px) {
+    .myTicketsSearch {
+        flex: 1 1 280px;
+        max-width: 320px;
+    }
+
+    .myTicketsMobileFilter {
+        display: none;
+    }
+
+    .myTicketsFilters {
+        width: auto;
+        overflow: visible;
+    }
+
+    .myTicketsCreate,
+    .myTicketsViewSwitch {
+        display: inline-flex;
+    }
+
+    .myTicketsCreate {
+        flex: 0 0 auto;
+        margin-left: auto;
+    }
+}
+
+@media (min-width: 1320px) {
+    .myTicketsGrid {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+}
+
+.dark .myTicketsHeader h1,
+.dark .myTicketCard h2 {
+    color: #f8fafc;
+}
+
+.dark .myTicketsHeader p,
+.dark .myTicketTop,
+.dark .myTicketCustomer,
+.dark .myTicketUpdated,
+.dark .myTicketsFooter,
+.dark .myTicketOwner {
+    color: #9ca3af;
+}
+
+.dark .myTicketsToolbar,
+.dark .myTicketCard,
+.dark .myTicketsSearch,
+.dark .myTicketsMobileFilter,
+.dark .myTicketsFilters button,
+.dark .myTicketsViewSwitch,
+.dark .myTicketsViewSwitch button,
+.dark .myTicketsPager button,
+.dark .myTicketsPageSize {
+    background: #111827;
+    border-color: #253043;
+}
+
+.dark .myTicketCard {
+    background: linear-gradient(180deg, #111827 0%, #0b1220 100%);
+    box-shadow: 0 22px 54px rgba(0, 0, 0, 0.24);
+}
+
+.dark .myTicketsSearch,
+.dark .myTicketsSearch input,
+.dark .myTicketsMobileFilter,
+.dark .myTicketsFilters button,
+.dark .myTicketsViewSwitch button,
+.dark .myTicketsPager button,
+.dark .myTicketsPageSize,
+.dark .myTicketActions button {
+    color: #f3f4f6;
+}
+
+.dark .myTicketsSearch input::placeholder {
+    color: #9ca3af;
+}
+
+.dark .myTicketsCreate,
+.dark .myTicketsPager .isActive {
+    color: #ffffff;
+    background: #2563eb;
+    border-color: #2563eb;
+}
+
+.dark .myTicketsViewSwitch .isActive {
+    color: #60a5fa;
+    background: rgba(37, 99, 235, 0.18);
+}
+
+.dark .myTicketFooter {
+    border-top-color: #253043;
+}
+
+.dark .createTicketModal {
+    background: #111827;
+    border-color: #253043;
+}
+
+.dark .createTicketHeader {
+    border-bottom-color: #253043;
+}
+
+.dark .createTicketHeading h2,
+.dark .createTicketField label,
+.dark .createTicketAssignee strong {
+    color: #f8fafc;
+}
+
+.dark .createTicketField input,
+.dark .createTicketTextarea,
+.dark .createTicketSelectTrigger,
+.dark .createTicketAssignee,
+.dark .createTicketEmpty,
+.dark .createTicketSecondary {
+    color: #f3f4f6;
+    background: #0b1220;
+    border-color: #253043;
+}
+
+.dark .createTicketField input::placeholder,
+.dark .createTicketTextarea::placeholder,
+.dark .createTicketAssignee small,
+.dark .createTicketEmpty {
+    color: #9ca3af;
+}
+
+.dark .createTicketSecondary {
+    color: #f3f4f6;
+}
