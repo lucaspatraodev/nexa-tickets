@@ -2,6 +2,8 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Ticket;
+use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
@@ -12,23 +14,17 @@ class StoreTicketRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return true;
+        return $this->user() !== null;
     }
 
     /**
      * Get the validation rules that apply to the request.
      *
-     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array|string>
+     * @return array<string, ValidationRule|array<mixed>|string>
      */
     public function rules(): array
     {
         return [
-            'requester_id' => [
-                'required',
-                'integer',
-                'exists:users,id',
-            ],
-
             'title' => [
                 'required',
                 'string',
@@ -69,24 +65,18 @@ class StoreTicketRequest extends FormRequest
             'type' => [
                 'required',
                 'string',
-                Rule::in([
-                    'incident',
-                    'request',
-                    'task',
-                    'question',
-                    'change',
-                ]),
+                Rule::in(Ticket::TYPES),
             ],
 
             'priority' => [
                 'required',
                 'string',
-                Rule::in([
-                    'low',
-                    'medium',
-                    'high',
-                    'critical',
-                ]),
+                Rule::in(Ticket::PRIORITIES),
+            ],
+
+            'due_at' => [
+                'nullable',
+                'date',
             ],
         ];
     }

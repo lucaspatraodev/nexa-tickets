@@ -1272,6 +1272,44 @@
     font-size: 15px;
 }
 
+.myTicketsMetrics {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+}
+
+.myTicketsMetric {
+    display: grid;
+    gap: 5px;
+    min-width: 0;
+    padding: 16px;
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    box-shadow: 0 12px 30px rgba(15, 23, 42, 0.04);
+}
+
+.myTicketsMetric span {
+    color: #64748b;
+    font-size: 12px;
+    font-weight: 800;
+    text-transform: uppercase;
+}
+
+.myTicketsMetric strong {
+    color: #111827;
+    font-size: 27px;
+    line-height: 1;
+}
+
+.myTicketsMetric small {
+    overflow: hidden;
+    color: #94a3b8;
+    font-size: 12px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
 .myTicketsToolbar {
     display: flex;
     flex-wrap: wrap;
@@ -1335,11 +1373,16 @@
 }
 
 .myTicketsFilters {
-    display: flex;
+    display: none;
+    flex-wrap: wrap;
     gap: 10px;
     width: 100%;
     overflow-x: auto;
     padding-bottom: 2px;
+}
+
+.myTicketsFilters.isOpen {
+    display: flex;
 }
 
 .myTicketsFilters button {
@@ -1347,6 +1390,15 @@
     height: 42px;
     padding: 0 14px;
     white-space: nowrap;
+}
+
+.myTicketsFilterSelect {
+    min-width: max-content;
+}
+
+.myTicketsFilters .myTicketsClearFilters {
+    gap: 6px;
+    color: #475569;
 }
 
 .myTicketsCreate,
@@ -1405,35 +1457,35 @@
     box-shadow: 0 18px 42px rgba(15, 23, 42, 0.07);
 }
 
-.myTicketCard[data-priority*='Critical'] {
+.myTicketCard[data-priority='critical'] {
     --ticket-accent: #ef4444;
     --ticket-accent-soft: rgba(239, 68, 68, 0.12);
     --ticket-accent-text: #ef4444;
 }
 
-.myTicketCard[data-priority*='High'],
-.myTicketCard[data-status*='Due'] {
+.myTicketCard[data-priority='high'],
+.myTicketCard[data-status*='due'] {
     --ticket-accent: #f97316;
     --ticket-accent-soft: rgba(249, 115, 22, 0.13);
     --ticket-accent-text: #f97316;
 }
 
-.myTicketCard[data-priority*='Medium'],
-.myTicketCard[data-status*='Waiting'] {
+.myTicketCard[data-priority='medium'],
+.myTicketCard[data-status*='waiting'] {
     --ticket-accent: #eab308;
     --ticket-accent-soft: rgba(234, 179, 8, 0.14);
     --ticket-accent-text: #ca8a04;
 }
 
-.myTicketCard[data-priority*='Low'],
-.myTicketCard[data-status*='Resolved'] {
+.myTicketCard[data-priority='low'],
+.myTicketCard[data-status*='resolved'] {
     --ticket-accent: #22c55e;
     --ticket-accent-soft: rgba(34, 197, 94, 0.13);
     --ticket-accent-text: #16a34a;
 }
 
-.myTicketCard[data-status*='SLA'],
-.myTicketCard[data-status*='Breached'] {
+.myTicketCard[data-status*='sla'],
+.myTicketCard[data-status*='breached'] {
     --ticket-accent: #ef4444;
     --ticket-accent-soft: rgba(239, 68, 68, 0.12);
     --ticket-accent-text: #ef4444;
@@ -1476,6 +1528,14 @@
     font-size: 16px;
     line-height: 1.35;
     font-weight: 850;
+}
+
+.myTicketCard h2 a {
+    color: inherit;
+}
+
+.myTicketCard h2 a:hover {
+    color: #2563eb;
 }
 
 .myTicketCustomer {
@@ -1532,6 +1592,9 @@
     color: #334155;
     font-size: 13px;
     font-weight: 650;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .myTicketOwner span {
@@ -1551,7 +1614,8 @@
     gap: 6px;
 }
 
-.myTicketActions button {
+.myTicketActions button,
+.myTicketActions a {
     display: grid;
     place-items: center;
     width: 30px;
@@ -1560,6 +1624,59 @@
     background: transparent;
     border: 0;
     border-radius: 8px;
+}
+
+.myTicketActions button:hover,
+.myTicketActions a:hover {
+    color: #2563eb;
+    background: #eff6ff;
+}
+
+.myTicketActions button.isDestructive:hover {
+    color: #dc2626;
+    background: #fef2f2;
+}
+
+.myTicketsGrid.isList {
+    grid-template-columns: 1fr;
+}
+
+.myTicketsEmpty {
+    display: grid;
+    justify-items: center;
+    gap: 8px;
+    padding: 52px 20px;
+    color: #64748b;
+    text-align: center;
+    background: #ffffff;
+    border: 1px dashed #cbd5e1;
+    border-radius: 8px;
+}
+
+.myTicketsEmpty h2,
+.myTicketsEmpty p {
+    margin: 0;
+}
+
+.myTicketsEmpty h2 {
+    color: #111827;
+    font-size: 18px;
+    font-weight: 850;
+}
+
+.myTicketsEmpty p {
+    font-size: 14px;
+}
+
+.myTicketsEmpty button {
+    margin-top: 8px;
+    padding: 9px 13px;
+    color: #ffffff;
+    background: #2563eb;
+    border: 0;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 800;
 }
 
 .myTicketsFooter {
@@ -1591,6 +1708,11 @@
     color: #ffffff;
     background: #2563eb;
     border-color: #2563eb;
+}
+
+.myTicketsPager button:disabled {
+    cursor: not-allowed;
+    opacity: 0.45;
 }
 
 .myTicketsPageSize {
@@ -1790,6 +1912,10 @@
 }
 
 @media (min-width: 700px) {
+    .myTicketsMetrics {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
     .myTicketsGrid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
     }
@@ -1816,6 +1942,7 @@
     }
 
     .myTicketsFilters {
+        display: flex;
         width: auto;
         overflow: visible;
     }
@@ -1838,7 +1965,9 @@
 }
 
 .dark .myTicketsHeader h1,
-.dark .myTicketCard h2 {
+.dark .myTicketCard h2,
+.dark .myTicketsMetric strong,
+.dark .myTicketsEmpty h2 {
     color: #f8fafc;
 }
 
@@ -1852,7 +1981,9 @@
 }
 
 .dark .myTicketsToolbar,
+.dark .myTicketsMetric,
 .dark .myTicketCard,
+.dark .myTicketsEmpty,
 .dark .myTicketsSearch,
 .dark .myTicketsMobileFilter,
 .dark .myTicketsFilters button,
@@ -1876,7 +2007,8 @@
 .dark .myTicketsViewSwitch button,
 .dark .myTicketsPager button,
 .dark .myTicketsPageSize,
-.dark .myTicketActions button {
+.dark .myTicketActions button,
+.dark .myTicketActions a {
     color: #f3f4f6;
 }
 
@@ -1898,6 +2030,29 @@
 
 .dark .myTicketFooter {
     border-top-color: #253043;
+}
+
+.dark .myTicketsMetric,
+.dark .myTicketsEmpty {
+    background: #111827;
+    border-color: #253043;
+}
+
+.dark .myTicketsMetric span,
+.dark .myTicketsMetric small,
+.dark .myTicketsEmpty {
+    color: #9ca3af;
+}
+
+.dark .myTicketActions button:hover,
+.dark .myTicketActions a:hover {
+    color: #60a5fa;
+    background: rgba(37, 99, 235, 0.18);
+}
+
+.dark .myTicketActions button.isDestructive:hover {
+    color: #f87171;
+    background: rgba(239, 68, 68, 0.12);
 }
 
 .dark .createTicketModal {

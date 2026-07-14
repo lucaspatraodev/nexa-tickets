@@ -20,6 +20,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::put('/tickets/{ticket}', [TicketsController::class, 'update'])
         ->name('tickets.update');
 
+    Route::delete('/tickets/{ticket}', [TicketsController::class, 'destroy'])
+        ->name('tickets.destroy');
+
     Route::inertia('insights', 'insights', [
         'metrics' => [
             [
@@ -47,4 +50,4 @@ Route::middleware(['auth', 'verified'])->group(function () {
     ])->name('insights.index');
 });
 
-require __DIR__ . '/settings.php';
+require __DIR__.'/settings.php';

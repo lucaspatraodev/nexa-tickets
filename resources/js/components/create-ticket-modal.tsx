@@ -1,5 +1,5 @@
-import { useForm, usePage } from '@inertiajs/react';
-import { LoaderCircle, Plus } from 'lucide-react';
+import { useForm } from '@inertiajs/react';
+import { LoaderCircle, Pencil, Plus, Save } from 'lucide-react';
 import { useState } from 'react';
 import type { FormEvent } from 'react';
 
@@ -23,19 +23,16 @@ import {
     SelectTrigger,
     SelectValue,
 } from '@/components/ui/select';
-import type { Auth } from '@/types';
+import { store, update } from '@/routes/tickets';
+import type {
+    Ticket,
+    TicketPriority,
+    TicketSelectOption,
+    TicketStatus,
+    TicketType,
+} from '@/types';
 
-export type TicketSelectOption = {
-    id: number;
-    name: string;
-    email?: string;
-};
-
-type TicketType = 'incident' | 'request' | 'task' | 'question' | 'change';
-type TicketPriority = 'low' | 'medium' | 'high' | 'critical';
-
-type CreateTicketFormData = {
-    requester_id: number;
+type TicketFormData = {
     title: string;
     description: string;
     category_id: string;
@@ -43,12 +40,16 @@ type CreateTicketFormData = {
     assignee_ids: number[];
     type: TicketType;
     priority: TicketPriority;
+    status: TicketStatus;
+    due_at: string;
 };
 
-type CreateTicketModalProps = {
+type TicketFormModalProps = {
     categories?: TicketSelectOption[];
     groups?: TicketSelectOption[];
     assignees?: TicketSelectOption[];
+    ticket?: Ticket;
+    triggerClassName?: string;
 };
 
 const ticketTypes: { label: string; value: TicketType }[] = [
@@ -66,24 +67,39 @@ const ticketPriorities: { label: string; value: TicketPriority }[] = [
     { label: 'Critical', value: 'critical' },
 ];
 
-export default function CreateTicketModal({
+const ticketStatuses: { label: string; value: TicketStatus }[] = [
+    { label: 'Open', value: 'open' },
+    { label: 'In progress', value: 'in_progress' },
+    { label: 'Waiting', value: 'waiting' },
+    { label: 'Resolved', value: 'resolved' },
+    { label: 'Closed', value: 'closed' },
+];
+
+function formDefaults(ticket?: Ticket): TicketFormData {
+    return {
+        title: ticket?.title ?? '',
+        description: ticket?.description ?? '',
+        category_id: ticket ? String(ticket.category.id) : '',
+        group_id: ticket ? String(ticket.group.id) : '',
+        assignee_ids: ticket?.assignee_ids ?? [],
+        type: ticket?.type ?? 'incident',
+        priority: ticket?.priority ?? 'medium',
+        status: ticket?.status ?? 'open',
+        due_at: ticket?.due_at_input ?? '',
+    };
+}
+
+export default function TicketFormModal({
     categories = [],
     groups = [],
     assignees = [],
-}: CreateTicketModalProps) {
+    ticket,
+    triggerClassName,
+}: TicketFormModalProps) {
     const [open, setOpen] = useState(false);
-    const { auth } = usePage<{ auth: Auth }>().props;
-    const { data, setData, post, processing, reset, clearErrors, errors } =
-        useForm<CreateTicketFormData>({
-            requester_id: auth.user.id,
-            title: '',
-            description: '',
-            category_id: '',
-            group_id: '',
-            assignee_ids: [],
-            type: 'incident',
-            priority: 'medium',
-        });
+    const isEditing = ticket !== undefined;
+    const { data, setData, post, put, processing, reset, clearErrors, errors } =
+        useForm<TicketFormData>(formDefaults(ticket));
 
     function handleOpenChange(nextOpen: boolean) {
         setOpen(nextOpen);
@@ -105,13 +121,22 @@ export default function CreateTicketModal({
     function submit(event: FormEvent<HTMLFormElement>) {
         event.preventDefault();
 
-        post('/tickets', {
+        const options = {
             preserveScroll: true,
+            preserveState: true,
             onSuccess: () => {
                 reset();
                 setOpen(false);
             },
-        });
+        };
+
+        if (ticket) {
+            put(update.url(ticket.id), options);
+
+            return;
+        }
+
+        post(store.url(), options);
     }
 
     const submitDisabled =
@@ -120,36 +145,53 @@ export default function CreateTicketModal({
     return (
         <Dialog open={open} onOpenChange={handleOpenChange}>
             <DialogTrigger asChild>
-                <button className="myTicketsCreate" type="button">
-                    <Plus size={18} />
-                    New Ticket
-                </button>
+                {isEditing ? (
+                    <button
+                        className={triggerClassName}
+                        type="button"
+                        aria-label={`Edit ${ticket.reference}`}
+                        title="Edit ticket"
+                    >
+                        <Pencil size={17} />
+                    </button>
+                ) : (
+                    <button className="myTicketsCreate" type="button">
+                        <Plus size={18} />
+                        New Ticket
+                    </button>
+                )}
             </DialogTrigger>
 
             <DialogContent className="createTicketModal">
                 <DialogHeader className="createTicketHeader">
                     <div className="createTicketHeading">
                         <span className="createTicketIcon">
-                            <Plus size={18} />
+                            {isEditing ? (
+                                <Pencil size={18} />
+                            ) : (
+                                <Plus size={18} />
+                            )}
                         </span>
-                        <DialogTitle>New Ticket</DialogTitle>
+                        <DialogTitle>
+                            {isEditing
+                                ? `Edit ${ticket.reference}`
+                                : 'New Ticket'}
+                        </DialogTitle>
                     </div>
                     <DialogDescription className="sr-only">
-                        Create a new support ticket.
+                        {isEditing
+                            ? 'Update this support ticket.'
+                            : 'Create a new support ticket.'}
                     </DialogDescription>
                 </DialogHeader>
 
                 <form className="createTicketForm" onSubmit={submit}>
-                    <input
-                        name="requester_id"
-                        type="hidden"
-                        value={data.requester_id}
-                    />
-
                     <div className="createTicketField createTicketFieldFull">
-                        <Label htmlFor="ticket-title">Title</Label>
+                        <Label htmlFor={`ticket-title-${ticket?.id ?? 'new'}`}>
+                            Title
+                        </Label>
                         <Input
-                            id="ticket-title"
+                            id={`ticket-title-${ticket?.id ?? 'new'}`}
                             aria-invalid={Boolean(errors.title)}
                             autoFocus
                             maxLength={160}
@@ -165,9 +207,13 @@ export default function CreateTicketModal({
                     </div>
 
                     <div className="createTicketField createTicketFieldFull">
-                        <Label htmlFor="ticket-description">Description</Label>
+                        <Label
+                            htmlFor={`ticket-description-${ticket?.id ?? 'new'}`}
+                        >
+                            Description
+                        </Label>
                         <textarea
-                            id="ticket-description"
+                            id={`ticket-description-${ticket?.id ?? 'new'}`}
                             aria-invalid={Boolean(errors.description)}
                             className="createTicketTextarea"
                             maxLength={5000}
@@ -184,7 +230,7 @@ export default function CreateTicketModal({
 
                     <div className="createTicketGrid">
                         <div className="createTicketField">
-                            <Label htmlFor="ticket-category">Category</Label>
+                            <Label>Category</Label>
                             <Select
                                 disabled={categories.length === 0}
                                 onValueChange={(value) =>
@@ -193,7 +239,7 @@ export default function CreateTicketModal({
                                 value={data.category_id}
                             >
                                 <SelectTrigger
-                                    id="ticket-category"
+                                    aria-label="Category"
                                     aria-invalid={Boolean(errors.category_id)}
                                     className="createTicketSelectTrigger"
                                 >
@@ -220,7 +266,7 @@ export default function CreateTicketModal({
                         </div>
 
                         <div className="createTicketField">
-                            <Label htmlFor="ticket-group">Group</Label>
+                            <Label>Group</Label>
                             <Select
                                 disabled={groups.length === 0}
                                 onValueChange={(value) =>
@@ -229,7 +275,7 @@ export default function CreateTicketModal({
                                 value={data.group_id}
                             >
                                 <SelectTrigger
-                                    id="ticket-group"
+                                    aria-label="Group"
                                     aria-invalid={Boolean(errors.group_id)}
                                     className="createTicketSelectTrigger"
                                 >
@@ -256,7 +302,7 @@ export default function CreateTicketModal({
                         </div>
 
                         <div className="createTicketField">
-                            <Label htmlFor="ticket-type">Type</Label>
+                            <Label>Type</Label>
                             <Select
                                 onValueChange={(value) =>
                                     setData('type', value as TicketType)
@@ -264,7 +310,7 @@ export default function CreateTicketModal({
                                 value={data.type}
                             >
                                 <SelectTrigger
-                                    id="ticket-type"
+                                    aria-label="Type"
                                     aria-invalid={Boolean(errors.type)}
                                     className="createTicketSelectTrigger"
                                 >
@@ -285,7 +331,7 @@ export default function CreateTicketModal({
                         </div>
 
                         <div className="createTicketField">
-                            <Label htmlFor="ticket-priority">Priority</Label>
+                            <Label>Priority</Label>
                             <Select
                                 onValueChange={(value) =>
                                     setData('priority', value as TicketPriority)
@@ -293,7 +339,7 @@ export default function CreateTicketModal({
                                 value={data.priority}
                             >
                                 <SelectTrigger
-                                    id="ticket-priority"
+                                    aria-label="Priority"
                                     aria-invalid={Boolean(errors.priority)}
                                     className="createTicketSelectTrigger"
                                 >
@@ -312,6 +358,56 @@ export default function CreateTicketModal({
                             </Select>
                             <InputError message={errors.priority} />
                         </div>
+
+                        {isEditing ? (
+                            <div className="createTicketField">
+                                <Label>Status</Label>
+                                <Select
+                                    onValueChange={(value) =>
+                                        setData('status', value as TicketStatus)
+                                    }
+                                    value={data.status}
+                                >
+                                    <SelectTrigger
+                                        aria-label="Status"
+                                        aria-invalid={Boolean(errors.status)}
+                                        className="createTicketSelectTrigger"
+                                    >
+                                        <SelectValue />
+                                    </SelectTrigger>
+                                    <SelectContent>
+                                        {ticketStatuses.map((status) => (
+                                            <SelectItem
+                                                key={status.value}
+                                                value={status.value}
+                                            >
+                                                {status.label}
+                                            </SelectItem>
+                                        ))}
+                                    </SelectContent>
+                                </Select>
+                                <InputError message={errors.status} />
+                            </div>
+                        ) : null}
+
+                        <div className="createTicketField">
+                            <Label
+                                htmlFor={`ticket-due-at-${ticket?.id ?? 'new'}`}
+                            >
+                                SLA due at
+                            </Label>
+                            <Input
+                                id={`ticket-due-at-${ticket?.id ?? 'new'}`}
+                                aria-invalid={Boolean(errors.due_at)}
+                                name="due_at"
+                                onChange={(event) =>
+                                    setData('due_at', event.target.value)
+                                }
+                                type="datetime-local"
+                                value={data.due_at}
+                            />
+                            <InputError message={errors.due_at} />
+                        </div>
                     </div>
 
                     <div className="createTicketField createTicketFieldFull">
@@ -321,14 +417,14 @@ export default function CreateTicketModal({
                                 assignees.map((assignee) => (
                                     <label
                                         className="createTicketAssignee"
-                                        htmlFor={`ticket-assignee-${assignee.id}`}
+                                        htmlFor={`ticket-${ticket?.id ?? 'new'}-assignee-${assignee.id}`}
                                         key={assignee.id}
                                     >
                                         <Checkbox
                                             checked={data.assignee_ids.includes(
                                                 assignee.id,
                                             )}
-                                            id={`ticket-assignee-${assignee.id}`}
+                                            id={`ticket-${ticket?.id ?? 'new'}-assignee-${assignee.id}`}
                                             onCheckedChange={(checked) =>
                                                 toggleAssignee(
                                                     assignee.id,
@@ -372,10 +468,12 @@ export default function CreateTicketModal({
                                     className="createTicketSpinner"
                                     size={17}
                                 />
+                            ) : isEditing ? (
+                                <Save size={17} />
                             ) : (
                                 <Plus size={17} />
                             )}
-                            Create Ticket
+                            {isEditing ? 'Save Changes' : 'Create Ticket'}
                         </button>
                     </DialogFooter>
                 </form>
@@ -383,3 +481,5 @@ export default function CreateTicketModal({
         </Dialog>
     );
 }
+
+export type { TicketSelectOption } from '@/types';
