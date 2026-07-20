@@ -2,14 +2,10 @@ import { Head } from '@inertiajs/react';
 import {
     AlertCircle,
     ArrowUpRight,
-    BookOpen,
     CalendarDays,
     CheckCircle2,
     Clock3,
-    FilePlus2,
-    ShieldCheck,
     Ticket,
-    UserCog,
 } from 'lucide-react';
 
 export default function Dashboard() {
@@ -39,7 +35,7 @@ export default function Dashboard() {
                         <div>
                             <span>Open Tickets</span>
                             <strong>28</strong>
-                            <small>
+                            <small className="dangerTrend">
                                 <ArrowUpRight size={13} />
                                 8% vs yesterday
                             </small>
@@ -80,7 +76,7 @@ export default function Dashboard() {
                         <div>
                             <span>Resolved Today</span>
                             <strong>15</strong>
-                            <small>
+                            <small className="successTrend">
                                 <ArrowUpRight size={13} />
                                 20% vs yesterday
                             </small>
@@ -332,38 +328,6 @@ export default function Dashboard() {
                         </div>
                     </article>
 
-                    <article className="dashboardCard dashboardPanel shortcutsPanel">
-                        <div className="panelHeader">
-                            <h2>Shortcuts</h2>
-                        </div>
-
-                        <div className="shortcutGrid">
-                            <button className="shortcutItem" type="button">
-                                <span className="shortcutIcon shortcutBlue">
-                                    <FilePlus2 size={20} />
-                                </span>
-                                <strong>Create Ticket</strong>
-                            </button>
-                            <button className="shortcutItem" type="button">
-                                <span className="shortcutIcon shortcutPurple">
-                                    <BookOpen size={20} />
-                                </span>
-                                <strong>Knowledge Base</strong>
-                            </button>
-                            <button className="shortcutItem" type="button">
-                                <span className="shortcutIcon shortcutGreen">
-                                    <ShieldCheck size={20} />
-                                </span>
-                                <strong>SLA Policies</strong>
-                            </button>
-                            <button className="shortcutItem" type="button">
-                                <span className="shortcutIcon shortcutGray">
-                                    <UserCog size={20} />
-                                </span>
-                                <strong>My Settings</strong>
-                            </button>
-                        </div>
-                    </article>
                 </section>
             </div>
         </>

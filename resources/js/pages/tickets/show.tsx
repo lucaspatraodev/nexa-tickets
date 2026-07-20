@@ -43,26 +43,26 @@ export default function TicketShowPage({
         <>
             <Head title={ticket.reference} />
 
-            <div className="mx-auto flex w-full max-w-5xl flex-col gap-6">
+            <div className="ticketDetailsPage flex w-full flex-col gap-6">
                 <Link
-                    className="inline-flex w-fit items-center gap-2 text-sm font-semibold text-slate-600 hover:text-blue-600 dark:text-slate-300"
+                    className="inline-flex w-fit items-center gap-2 text-sm font-semibold text-muted-foreground hover:text-primary"
                     href={index.url()}
                 >
                     <ArrowLeft size={17} />
                     Back to my tickets
                 </Link>
 
-                <header className="flex flex-col gap-4 rounded-xl border border-slate-200 bg-white p-6 shadow-sm sm:flex-row sm:items-start sm:justify-between dark:border-slate-700 dark:bg-slate-900">
+                <header className="flex flex-col gap-4 rounded-xl border border-border bg-card p-6 sm:flex-row sm:items-start sm:justify-between">
                     <div className="min-w-0">
-                        <div className="mb-2 flex flex-wrap items-center gap-2 text-sm font-bold text-blue-600">
+                        <div className="mb-2 flex flex-wrap items-center gap-2 text-sm font-bold text-primary">
                             <span>{ticket.reference}</span>
-                            <span className="text-slate-300">•</span>
+                            <span className="text-muted-foreground">•</span>
                             <span>{ticket.priority_label} priority</span>
                         </div>
-                        <h1 className="text-2xl font-extrabold text-slate-950 dark:text-white">
+                        <h1 className="text-2xl font-extrabold text-foreground">
                             {ticket.title}
                         </h1>
-                        <p className="mt-2 text-sm text-slate-500 dark:text-slate-400">
+                        <p className="mt-2 text-sm text-muted-foreground">
                             Requested by {ticket.requester.name} · Updated{' '}
                             {ticket.updated_at_human}
                         </p>
@@ -74,10 +74,10 @@ export default function TicketShowPage({
                             categories={categories}
                             groups={groups}
                             ticket={ticket}
-                            triggerClassName="inline-flex h-10 items-center justify-center rounded-lg border border-slate-300 px-3 text-slate-700 hover:bg-slate-50 dark:border-slate-600 dark:text-slate-200 dark:hover:bg-slate-800"
+                            triggerClassName="inline-flex h-10 items-center justify-center rounded-lg border border-border px-3 text-foreground hover:bg-accent"
                         />
                         <button
-                            className="inline-flex h-10 items-center justify-center gap-2 rounded-lg border border-red-200 px-3 text-sm font-bold text-red-600 hover:bg-red-50 dark:border-red-900 dark:hover:bg-red-950/40"
+                            className="inline-flex h-10 items-center justify-center gap-2 rounded-lg border border-destructive/40 px-3 text-sm font-bold text-destructive hover:bg-destructive/10"
                             onClick={deleteTicket}
                             type="button"
                         >
@@ -88,16 +88,16 @@ export default function TicketShowPage({
                 </header>
 
                 <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_300px]">
-                    <main className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-slate-900">
-                        <h2 className="text-sm font-extrabold tracking-wide text-slate-900 uppercase dark:text-white">
+                    <main className="rounded-xl border border-border bg-card p-6">
+                        <h2 className="text-sm font-extrabold tracking-wide text-foreground uppercase">
                             Description
                         </h2>
-                        <p className="mt-4 text-sm leading-7 whitespace-pre-wrap text-slate-700 dark:text-slate-300">
+                        <p className="mt-4 text-sm leading-7 whitespace-pre-wrap text-foreground">
                             {ticket.description}
                         </p>
                     </main>
 
-                    <aside className="grid content-start gap-3 rounded-xl border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-700 dark:bg-slate-900">
+                    <aside className="grid content-start gap-3 rounded-xl border border-border bg-card p-5">
                         <Detail icon={<Clock3 size={17} />} label="Status">
                             {ticket.status_label}
                         </Detail>
@@ -127,7 +127,7 @@ export default function TicketShowPage({
                         </Detail>
                         <Detail icon={<Mail size={17} />} label="Requester">
                             <a
-                                className="hover:text-blue-600"
+                                className="hover:text-primary"
                                 href={`mailto:${ticket.requester.email}`}
                             >
                                 {ticket.requester.email}
@@ -150,13 +150,13 @@ function Detail({
     children: ReactNode;
 }) {
     return (
-        <div className="grid grid-cols-[24px_minmax(0,1fr)] gap-2 border-b border-slate-100 py-3 last:border-0 dark:border-slate-800">
-            <span className="mt-0.5 text-slate-400">{icon}</span>
+        <div className="grid grid-cols-[24px_minmax(0,1fr)] gap-2 border-b border-border py-3 last:border-0">
+            <span className="mt-0.5 text-muted-foreground">{icon}</span>
             <div>
-                <span className="text-xs font-extrabold tracking-wide text-slate-400 uppercase">
+                <span className="text-xs font-extrabold tracking-wide text-muted-foreground uppercase">
                     {label}
                 </span>
-                <div className="mt-1 text-sm font-semibold text-slate-700 dark:text-slate-200">
+                <div className="mt-1 text-sm font-semibold text-foreground">
                     {children}
                 </div>
             </div>

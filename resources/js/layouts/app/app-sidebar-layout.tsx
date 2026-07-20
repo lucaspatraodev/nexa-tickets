@@ -14,6 +14,7 @@ import {
     Sun,
     Ticket,
 } from 'lucide-react';
+import { useEffect, useState } from 'react';
 import { useAppearance } from '@/hooks/use-appearance';
 import { cn } from '@/lib/utils';
 import type { AppLayoutProps } from '@/types';
@@ -43,6 +44,7 @@ const navigationItems = [
 
 export default function AppSidebarLayout({ children }: AppLayoutProps) {
     const { resolvedAppearance, updateAppearance } = useAppearance();
+    const [sidebarOpen, setSidebarOpen] = useState(false);
     const page = usePage();
     const isDark = resolvedAppearance === 'dark';
     const currentPath = page.url.split('?')[0];
@@ -51,9 +53,34 @@ export default function AppSidebarLayout({ children }: AppLayoutProps) {
             ? currentPath === href
             : currentPath.startsWith(href);
 
+    useEffect(() => {
+        setSidebarOpen(false);
+    }, [currentPath]);
+
+    useEffect(() => {
+        if (!sidebarOpen) {
+            return;
+        }
+
+        const closeOnEscape = (event: KeyboardEvent) => {
+            if (event.key === 'Escape') {
+                setSidebarOpen(false);
+            }
+        };
+
+        window.addEventListener('keydown', closeOnEscape);
+
+        return () => window.removeEventListener('keydown', closeOnEscape);
+    }, [sidebarOpen]);
+
     return (
         <div className="nexaShell">
-            <aside className="nexaSidebar">
+            <aside
+                className={cn('nexaSidebar', {
+                    nexaSidebarOpen: sidebarOpen,
+                })}
+                id="nexa-sidebar"
+            >
                 <div className="sidebarBrand">
                     <div className="sidebarLogo">N</div>
                     <span>Nexa Tickets</span>
@@ -70,6 +97,7 @@ export default function AppSidebarLayout({ children }: AppLayoutProps) {
                                 })}
                                 href={item.href}
                                 key={item.href}
+                                onClick={() => setSidebarOpen(false)}
                             >
                                 <Icon size={18} />
                                 <span>{item.title}</span>
@@ -79,17 +107,6 @@ export default function AppSidebarLayout({ children }: AppLayoutProps) {
                 </nav>
 
                 <div className="sidebarBottom">
-                    <div className="sidebarAiCard">
-                        <div className="sidebarAiTitle">
-                            <Sparkles size={16} />
-                            <span>AI Assistant</span>
-                        </div>
-                        <p>Ask anything about your tickets and performance.</p>
-                        <button className="sidebarAiButton" type="button">
-                            Ask Nexa AI
-                        </button>
-                    </div>
-
                     <div className="sidebarUserCard">
                         <div className="userAvatar">L</div>
                         <div>
@@ -101,12 +118,24 @@ export default function AppSidebarLayout({ children }: AppLayoutProps) {
                 </div>
             </aside>
 
+            {sidebarOpen ? (
+                <button
+                    className="nexaSidebarBackdrop"
+                    type="button"
+                    aria-label="Close menu"
+                    onClick={() => setSidebarOpen(false)}
+                />
+            ) : null}
+
             <div className="nexaMain">
                 <header className="nexaTopbar">
                     <button
                         className="topbarIconButton mobileMenuButton"
                         type="button"
                         aria-label="Open menu"
+                        aria-controls="nexa-sidebar"
+                        aria-expanded={sidebarOpen}
+                        onClick={() => setSidebarOpen((isOpen) => !isOpen)}
                     >
                         <Menu size={20} />
                     </button>
@@ -151,9 +180,13 @@ export default function AppSidebarLayout({ children }: AppLayoutProps) {
                         >
                             <MessageCircle size={18} />
                         </button>
-                        <button className="topbarAiButton" type="button">
+                        <button
+                            className="topbarAiButton"
+                            type="button"
+                            aria-label="Ask Nexa"
+                        >
                             <Sparkles size={16} />
-                            <span>Ask Nexa AI</span>
+                            <span>Ask Nexa</span>
                         </button>
                         <button
                             className="topbarDateButton topbarDesktopOnly"
